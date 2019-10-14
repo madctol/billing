@@ -21,17 +21,19 @@ public class BillingServiceImplTest {
 	@Autowired
 	private BillingService billingSvc;
 	
-	private BillItem getBasicItem() {
+	private BillItem getItem(boolean taxed, boolean imported) {
 		BillItem item = new BillItem();
 		item.setDescription("cd");
 		item.setPrice(14.99);
 		item.setUnits(1);
+		item.setTaxed(taxed);
+		item.setImported(imported);
 		return item;
 	}
 	
 	@Test
 	public void testBasicWithoutTaxes() {
-		BillItem item = getBasicItem();
+		BillItem item = getItem(false, false);
 		List<BillItem> items = new ArrayList<>(1);
 		items.add(item);
 		Bill res = billingSvc.calculateTaxes(items);
@@ -43,8 +45,7 @@ public class BillingServiceImplTest {
 	
 	@Test
 	public void testBasicWithTaxes() {
-		BillItem item = getBasicItem();
-		item.setTaxed(true);
+		BillItem item = getItem(true, false);
 		List<BillItem> items = new ArrayList<>(1);
 		items.add(item);
 		Bill res = billingSvc.calculateTaxes(items);
@@ -56,9 +57,7 @@ public class BillingServiceImplTest {
 	
 	@Test
 	public void testImportedWithTaxes() {
-		BillItem item = getBasicItem();
-		item.setTaxed(true);
-		item.setImported(true);
+		BillItem item = getItem(true, true);
 		List<BillItem> items = new ArrayList<>(1);
 		items.add(item);
 		Bill res = billingSvc.calculateTaxes(items);
@@ -66,6 +65,20 @@ public class BillingServiceImplTest {
 		Assert.assertNotNull(res);
 		Assert.assertEquals(2.25, res.getTaxes(), 0.001d);
 		Assert.assertEquals(17.24, res.getTotal(), 0.001d);
+	}
+	
+	@Test
+	public void testMixedItems() {
+		List<BillItem> items = new ArrayList<>(4);
+		items.add(getItem(false, false));
+		items.add(getItem(true, false));
+		items.add(getItem(false, true));
+		items.add(getItem(true, true));
+		Bill res = billingSvc.calculateTaxes(items);
+		
+		Assert.assertNotNull(res);
+		Assert.assertEquals(4.5, res.getTaxes(), 0.001d);
+		Assert.assertEquals(64.46, res.getTotal(), 0.001d);
 	}
 
 }
