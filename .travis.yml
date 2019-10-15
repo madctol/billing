@@ -1,1 +1,13 @@
 language: java
+
+travis encrypt 434719be6ef9f84363089df87f4299845b5d3f53
+
+addons:
+  sonarcloud:
+    organization: "madctol"
+    token:
+      secure: "b059e9db3383db8b8101b1c3a9e50562daa7eab7" # encrypted value of your token
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=madctol_billing
