@@ -2,3 +2,5 @@
 
 # billing
 A billing application
+
+It can be tested at: http://madc-billing.herokuapp.com/api/
