@@ -1,7 +1,5 @@
 language: java
 
-travis encrypt 434719be6ef9f84363089df87f4299845b5d3f53
-
 addons:
   sonarcloud:
     organization: "madctol"
