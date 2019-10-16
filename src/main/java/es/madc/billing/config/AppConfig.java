@@ -40,8 +40,8 @@ public class AppConfig {
           "This is an example of billing sales taxes API.", 
           "API TOS", 
           "Terms of service", 
-          new Contact("Miguel Ángel Díaz Calvo", "www.example.com", "miguelangeldiazcalvo@gmail.com"), 
-          "License of API", "API license URL", Collections.emptyList());
+          new Contact("Miguel Ángel Díaz Calvo", "http://madc-billing.herokuapp.com/api/", "miguelangeldiazcalvo@gmail.com"), 
+          "Mit License", "https://opensource.org/licenses/MIT", Collections.emptyList());
     }
     
 }

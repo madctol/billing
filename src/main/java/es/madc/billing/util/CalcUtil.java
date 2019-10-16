@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class CalcUtil {
 
-	private static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.US));
+	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.US));
 
 	private CalcUtil() {
 		// No hace nada

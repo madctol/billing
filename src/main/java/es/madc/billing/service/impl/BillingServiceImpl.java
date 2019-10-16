@@ -25,7 +25,7 @@ public class BillingServiceImpl implements BillingService {
 			double itemTaxes;
 			double itemTotalPrice;
 			for (BillItem item : items) {
-				itemTotalPrice = Double.valueOf(item.getPrice());
+				itemTotalPrice = item.getPrice();
 				itemTaxes = CalcUtil.calcTaxes(itemTotalPrice, getItemTax(item));
 				itemTotalPrice += itemTaxes;
 				taxes += itemTaxes;
