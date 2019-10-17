@@ -2,12 +2,19 @@ package es.madc.billing.response;
 
 import java.util.List;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "The bill generated")
 public class BillResponse {
 	
+	@ApiModelProperty(notes = "The items with the prices with taxes included")
 	private List<BillItemResponse> items;
 
+	@ApiModelProperty(notes = "The total taxes to pay")
 	private String taxes;
 	
+	@ApiModelProperty(notes = "The total price to pay, taxes included")
 	private String total;
 
 	public List<BillItemResponse> getItems() {
