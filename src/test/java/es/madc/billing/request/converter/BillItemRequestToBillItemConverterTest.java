@@ -40,7 +40,7 @@ public class BillItemRequestToBillItemConverterTest {
         Assert.assertNotNull(res);
         Assert.assertEquals(b.getDescription(), res.getDescription());
         Assert.assertEquals(b.getUnits(), res.getUnits());
-        Assert.assertEquals(Double.parseDouble(0.99d, b.getPrice()), 0.001);
+        Assert.assertEquals(0.99d, Double.parseDouble(b.getPrice()), 0.001);
 
     }
 
