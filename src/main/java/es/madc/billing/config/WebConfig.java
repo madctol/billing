@@ -12,6 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
  
     @Override
     public void addFormatters(FormatterRegistry registry) {
+        // Damos de alta los converters
     	registry.addConverter(new BillItemRequestToBillItemConverter());
         registry.addConverter(new BillItemToBillItemResponseConverter());
     }

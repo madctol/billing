@@ -40,9 +40,9 @@ public class BillingController {
 		@ApiResponse(code = 400, message = "Invalid param")
 	})
 	@PostMapping("/")
-	public BillResponse generate(
-		@ApiParam(name="bill items") @RequestBody List<BillItemRequest> items) {
+	public BillResponse generate(@ApiParam(name="bill items") @RequestBody List<BillItemRequest> items) {
 		
+		// Convertimos los objetos de entrada en objetos de servicio
 		List<BillItem> billItems = new ArrayList<>();
 		if (items!=null) {
 			for (BillItemRequest item: items) {
@@ -50,10 +50,13 @@ public class BillingController {
 			}
 		}
 		
+		// Consultamos si a cada objeto hay que aplicarle impuestos
 		processInputData(billItems);
 	
+		// Calculamos los impuestos
 		Bill billResult = billingSvc.calculateTaxes(billItems);
 		
+		// Convertimos los objetos de servicio a objetos de respuesta
 		BillResponse billResponse = new BillResponse();
 		if (billResult!=null && billResult.getItems()!=null) {
 			billResponse.setItems(new ArrayList<>());
