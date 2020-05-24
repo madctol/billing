@@ -4,7 +4,7 @@ addons:
   sonarcloud:
     organization: "madctol"
     token:
-      secure: "b059e9db3383db8b8101b1c3a9e50562daa7eab7" # encrypted value of your token
+      secure: "3f3c42190d65497887abfb1d7fbba655142ecc7f" # encrypted value of your token
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
