@@ -1,5 +1,6 @@
 package es.madc.billing.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,17 +20,16 @@ public class BillingServiceImpl implements BillingService {
 
 	@Override
 	public Bill calculateTaxes(List<BillItem> items) {
-		double total = 0d;
-		double taxes = 0d;
+		BigDecimal total = BigDecimal.ZERO;
+		BigDecimal taxes = BigDecimal.ZERO;
 		if (items != null) {
-			double itemTaxes;
-			double itemTotalPrice;
+			BigDecimal itemTaxes;
+			BigDecimal itemTotalPrice;
 			for (BillItem item : items) {
-				itemTotalPrice = item.getPrice();
-				itemTaxes = CalcUtil.calcTaxes(itemTotalPrice, getItemTax(item));
-				itemTotalPrice += itemTaxes;
-				taxes += itemTaxes;
-				total += itemTotalPrice;
+				itemTaxes = CalcUtil.calcTaxes(item.getPrice(), getItemTaxes(item));
+				itemTotalPrice = item.getPrice().add(itemTaxes);
+				taxes = taxes.add(itemTaxes);
+				total = total.add(itemTotalPrice);
 				item.setPrice(itemTotalPrice);
 			}
 		}
@@ -39,8 +39,15 @@ public class BillingServiceImpl implements BillingService {
 		return bill;
 	}
 
-	private int getItemTax(BillItem item) {
-		return (item.isImported() ? 5 : 0) + (item.isTaxed() ? 10 : 0);
+	private BigDecimal getItemTaxes(BillItem item) {
+		BigDecimal tax = BigDecimal.ZERO;
+		if (item.isImported()) {
+			tax = tax.add(new BigDecimal(5));
+		}
+		if (item.isTaxed()) {
+			tax = tax.add(new BigDecimal(10));
+		}
+		return tax;
 	}
 
 	@Override

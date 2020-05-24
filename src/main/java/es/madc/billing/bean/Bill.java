@@ -1,14 +1,15 @@
 package es.madc.billing.bean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Bill {
 	
 	private List<BillItem> items;
 	
-	private double taxes;
+	private BigDecimal taxes;
 	
-	private double total;
+	private BigDecimal total;
 
 	public List<BillItem> getItems() {
 		return items;
@@ -18,19 +19,19 @@ public class Bill {
 		this.items = items;
 	}
 
-	public double getTaxes() {
+	public BigDecimal getTaxes() {
 		return taxes;
 	}
 
-	public void setTaxes(double taxes) {
+	public void setTaxes(BigDecimal taxes) {
 		this.taxes = taxes;
 	}
 
-	public double getTotal() {
+	public BigDecimal getTotal() {
 		return total;
 	}
 
-	public void setTotal(double total) {
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
 

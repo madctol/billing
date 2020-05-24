@@ -13,7 +13,7 @@ public class BillItemToBillItemResponseConverter implements Converter<BillItem, 
 		BillItemResponse item = new BillItemResponse();
 		item.setDescription(from.getDescription());
 		item.setUnits(from.getUnits());
-		item.setPrice(CalcUtil.doubleToString(from.getPrice()));
+		item.setPrice(CalcUtil.formatPrice(from.getPrice()));
 		return item;
 	}
 

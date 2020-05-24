@@ -1,5 +1,6 @@
 package es.madc.billing.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import es.madc.billing.bean.BillItem;
 import es.madc.billing.bean.Bill;
 import es.madc.billing.service.BillingService;
+import es.madc.billing.util.CalcUtil;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=BillingServiceImpl.class)
@@ -24,7 +26,7 @@ public class BillingServiceImplTest {
 	private BillItem getItem(boolean taxed, boolean imported) {
 		BillItem item = new BillItem();
 		item.setDescription("cd");
-		item.setPrice(14.99);
+		item.setPrice(new BigDecimal("14.99"));
 		item.setUnits(1);
 		item.setTaxed(taxed);
 		item.setImported(imported);
@@ -33,14 +35,13 @@ public class BillingServiceImplTest {
 	
 	@Test
 	public void testBasicWithoutTaxes() {
-		BillItem item = getItem(false, false);
 		List<BillItem> items = new ArrayList<>(1);
-		items.add(item);
+		items.add(getItem(false, false));
 		Bill res = billingSvc.calculateTaxes(items);
 		
 		Assert.assertNotNull(res);
-		Assert.assertEquals(0, res.getTaxes(), 0.001d);
-		Assert.assertEquals(14.99, res.getTotal(), 0.001d);
+		Assert.assertEquals(new BigDecimal("0.00"), res.getTaxes());
+		Assert.assertEquals(new BigDecimal("14.99"), res.getTotal());
 	}
 	
 	@Test
@@ -51,8 +52,8 @@ public class BillingServiceImplTest {
 		Bill res = billingSvc.calculateTaxes(items);
 		
 		Assert.assertNotNull(res);
-		Assert.assertEquals(1.5, res.getTaxes(), 0.001d);
-		Assert.assertEquals(16.49, res.getTotal(), 0.001d);
+		Assert.assertEquals(new BigDecimal("1.50"), res.getTaxes());
+		Assert.assertEquals(new BigDecimal("16.49"), res.getTotal());
 	}
 	
 	@Test
@@ -63,8 +64,8 @@ public class BillingServiceImplTest {
 		Bill res = billingSvc.calculateTaxes(items);
 		
 		Assert.assertNotNull(res);
-		Assert.assertEquals(2.25, res.getTaxes(), 0.001d);
-		Assert.assertEquals(17.24, res.getTotal(), 0.001d);
+		Assert.assertEquals(new BigDecimal("2.25"), res.getTaxes());
+		Assert.assertEquals(new BigDecimal("17.24"), res.getTotal());
 	}
 	
 	@Test
@@ -77,8 +78,8 @@ public class BillingServiceImplTest {
 		Bill res = billingSvc.calculateTaxes(items);
 		
 		Assert.assertNotNull(res);
-		Assert.assertEquals(4.5, res.getTaxes(), 0.001d);
-		Assert.assertEquals(64.46, res.getTotal(), 0.001d);
+		Assert.assertEquals(new BigDecimal("4.50"), res.getTaxes());
+		Assert.assertEquals(new BigDecimal("64.46"), res.getTotal());
 	}
 
 }

@@ -63,8 +63,8 @@ public class BillingController {
 			for (BillItem item: billResult.getItems()) {
 				billResponse.getItems().add(conversionService.convert(item, BillItemResponse.class));
 			}
-			billResponse.setTaxes(CalcUtil.doubleToString(billResult.getTaxes()));
-			billResponse.setTotal(CalcUtil.doubleToString(billResult.getTotal()));
+			billResponse.setTaxes(CalcUtil.formatPrice(billResult.getTaxes()));
+			billResponse.setTotal(CalcUtil.formatPrice(billResult.getTotal()));
 		}
 		return billResponse;
 	}

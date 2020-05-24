@@ -1,27 +1,29 @@
 package es.madc.billing.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public class CalcUtil {
 
-	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.US));
-
 	private CalcUtil() {
 		// No hace nada
 	}
 
-	public static double round(double number) {
-		return Math.ceil(number * 20d) / 20.0d;
+	public static BigDecimal calcTaxes(BigDecimal price, BigDecimal tax) {
+		return round(price.multiply(tax).divide(new BigDecimal(100), RoundingMode.CEILING));
 	}
 
-	public static double calcTaxes(double price, int tax) {
-		return round(price * tax / 100d);
+	private static BigDecimal round(BigDecimal price) {
+		// To round to the nearest .05, multiply by 20, round to the nearest integer, then divide by 20
+		BigDecimal result =  BigDecimal.valueOf(Math.ceil(price.doubleValue() * 20) / 20);
+		return result.setScale(2, RoundingMode.HALF_UP);
 	}
 	
-	public static String doubleToString(double price) {
-		return DECIMAL_FORMAT.format(price);
+	public static String formatPrice(BigDecimal price) {
+		return round(price).toString();
 	}
 
 }

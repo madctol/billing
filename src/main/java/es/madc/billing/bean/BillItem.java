@@ -1,12 +1,14 @@
 package es.madc.billing.bean;
 
+import java.math.BigDecimal;
+
 public class BillItem {
 	
 	private String description;
 	
 	private int units;
 	
-	private double price;
+	private BigDecimal price;
 	
 	private boolean taxed;
 	
@@ -28,13 +30,13 @@ public class BillItem {
 		this.units = units;
 	}
 
-	public double getPrice() {
-		return price;
+	public BigDecimal getPrice() {
+		return this.price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
-	}
+	};
 
 	public boolean isTaxed() {
 		return taxed;
