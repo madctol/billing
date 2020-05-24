@@ -3,8 +3,6 @@ language: java
 addons:
   sonarcloud:
     organization: "madctol"
-    token:
-      secure: "3f3c42190d65497887abfb1d7fbba655142ecc7f" # encrypted value of your token
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
