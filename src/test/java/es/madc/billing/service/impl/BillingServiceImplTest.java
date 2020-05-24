@@ -11,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import es.madc.billing.bean.BillItem;
 import es.madc.billing.bean.Bill;
+import es.madc.billing.bean.BillItem;
 import es.madc.billing.service.BillingService;
-import es.madc.billing.util.CalcUtil;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=BillingServiceImpl.class)
